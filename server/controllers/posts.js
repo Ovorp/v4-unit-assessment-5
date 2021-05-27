@@ -44,6 +44,9 @@ async function readPosts(req, res) {
 }
 
 function createPost(req, res) {
+  if (!req.session.user) {
+    return res.status(403).json('Forbidden, you are not logged in');
+  }
   const { id } = req.session.user;
   const { title, img, content } = req.body;
   const date = new Date();
@@ -52,9 +55,8 @@ function createPost(req, res) {
     db.post
       .create_post([id, title, img, content, date])
       .then(() => res.status(200).json('post posted'));
-  } else {
-    res.status(403).json('Forbidden, you are not logged in');
   }
+  return;
 }
 
 function readPost(req, res) {
