@@ -9,39 +9,51 @@ class Form extends Component {
     this.state = {
       title: '',
       img: '',
-      content: ''
+      content: '',
     };
     this.submit = this.submit.bind(this);
   }
 
   submit() {
-    axios.post('/api/post', this.state)
-      .then(() => 'replace this string with something useful')
-      .catch((err) => console.log(err))
+    axios
+      .post('/api/post', this.state)
+      .then(() => this.props.history.push('/dash'))
+      .catch((err) => console.log(err));
   }
-  
+
   render() {
     let imgSrc = this.state.img ? this.state.img : noImage;
 
     return (
-      <div className='form content-box'>
-        <h2 className='title'>New Post</h2>
-        <div className='form-main'>
-          <div className='form-input-box'>
+      <div className="form content-box">
+        <h2 className="title">New Post</h2>
+        <div className="form-main">
+          <div className="form-input-box">
             <p>Title:</p>
-            <input value={this.state.title} onChange={e => this.setState({ title: e.target.value })} />
+            <input
+              value={this.state.title}
+              onChange={(e) => this.setState({ title: e.target.value })}
+            />
           </div>
-          <img className='form-img-prev' src={imgSrc} alt='preview'/>
-          <div className='form-input-box'>
+          <img className="form-img-prev" src={imgSrc} alt="preview" />
+          <div className="form-input-box">
             <p>Image URL:</p>
-            <input value={this.state.img} onChange={e => this.setState({ img: e.target.value })} />
+            <input
+              value={this.state.img}
+              onChange={(e) => this.setState({ img: e.target.value })}
+            />
           </div>
-          <div className='form-text-box'>
+          <div className="form-text-box">
             <p>Content:</p>
-            <textarea value={this.state.content} onChange={e => this.setState({ content: e.target.value })} />
+            <textarea
+              value={this.state.content}
+              onChange={(e) => this.setState({ content: e.target.value })}
+            />
           </div>
         </div>
-        <button onClick={this.submit} className='dark-button'>Post</button>
+        <button onClick={this.submit} className="dark-button">
+          Post
+        </button>
       </div>
     );
   }
