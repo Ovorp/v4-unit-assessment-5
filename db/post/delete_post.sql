@@ -1,2 +1,2 @@
 DELETE FROM helo_posts
-WHERE author_id = $1;
+WHERE id = $1;
